@@ -12,6 +12,12 @@
 - `Editor.jsx`: CodeMirror 마크다운 에디터, 1초 디바운스 자동저장
 - `App.css`: 다크 테마 레이아웃
 
+## 2026-05-05 — 포커스/생성 버그 수정
+
+- `autoFocus` 대신 `useRef + useEffect`로 수동 포커스 (Electron에서 autoFocus 불안정)
+- `onBlur` 경쟁 조건 수정: Enter 처리 중 onBlur가 먼저 실행되는 문제를 `submitting` ref 플래그로 방지
+- dev 모드에서 DevTools 자동 열림 추가
+
 ### 실행 방법
 - 개발: `npm run dev` (Vite + Electron 동시 실행)
 - 빌드: `npm run build`
