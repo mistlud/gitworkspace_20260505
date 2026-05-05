@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 
 function FolderIcon() {
   return (
-    <svg width="44" height="36" viewBox="0 0 44 36" fill="none">
+    <svg width="42" height="42" viewBox="0 0 44 36" fill="none">
       <path d="M2 8C2 6.34 3.34 5 5 5H17L21 9H39C40.66 9 42 10.34 42 12V31C42 32.66 40.66 34 39 34H5C3.34 34 2 32.66 2 31V8Z" fill="#4a9eff" fillOpacity="0.75"/>
     </svg>
   )
@@ -10,7 +10,7 @@ function FolderIcon() {
 
 function MemoIcon({ selected }) {
   return (
-    <svg width="36" height="44" viewBox="0 0 36 44" fill="none">
+    <svg width="42" height="42" viewBox="0 0 36 44" fill="none">
       <rect x="2" y="2" width="32" height="40" rx="3" fill={selected ? '#1e3a5f' : '#2a2a2a'} stroke={selected ? '#4a9eff' : '#444'} strokeWidth="1.5"/>
       <line x1="8" y1="13" x2="28" y2="13" stroke={selected ? '#4a9eff' : '#666'} strokeWidth="1.5" strokeLinecap="round"/>
       <line x1="8" y1="19" x2="28" y2="19" stroke={selected ? '#4a9eff' : '#666'} strokeWidth="1.5" strokeLinecap="round"/>
@@ -105,7 +105,10 @@ export default function IconGrid({
   return (
     <div className="icon-grid-wrap">
       <div className="breadcrumb">
-        <button className="bc-item" onClick={onGoToRoot}>메모</button>
+        {currentFolder
+          ? <button className="bc-item" onClick={onGoToRoot}>메모</button>
+          : <span className="bc-item bc-current">메모</span>
+        }
         {currentFolder && (
           <>
             <span className="bc-sep">/</span>
@@ -143,8 +146,17 @@ export default function IconGrid({
                 </div>
                 <div className="icon-label">{name}</div>
                 <div className="icon-actions">
-                  <button onClick={e => startEdit(name, e)} title="이름 변경">✎</button>
-                  <button className="danger" onClick={e => handleDelete(name, e)} title="삭제">×</button>
+                  <button onClick={e => startEdit(name, e)} title="이름 변경">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M8.5 1.5l2 2L4 10H2v-2L8.5 1.5z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/>
+                    </svg>
+                  </button>
+                  <button className="danger" onClick={e => handleDelete(name, e)} title="삭제">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <line x1="2" y1="2" x2="10" y2="10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                      <line x1="10" y1="2" x2="2" y2="10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    </svg>
+                  </button>
                 </div>
               </>
             )}
